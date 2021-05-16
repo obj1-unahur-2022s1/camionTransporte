@@ -57,7 +57,7 @@ object contenedor {
 	method peso() = 100 + cosas.sum { c=> c.peso() }
 	
 	method nivelPeligrosidad() =
-		if (cosas.size() == 0) {0}
+		if (cosas.isEmpty()) {0}
 		else (cosas.max( { c=> c.nivelPeligrosidad() }).nivelPeligrosidad())
 	
 	method totalBultos() = 1 + cosas.sum { c => c.totalBultos()}
