@@ -1,0 +1,62 @@
+import camion.*
+import cosas.*
+
+
+describe "Test de las Cosas" {
+	var cantidadLadrillos = 30
+	var tieneMisiles = true
+	var pesoResiduosRadioactivos = 30
+	
+	fixture {
+		paqueteLadrillos.cantidadLadrillos(cantidadLadrillos)
+		bateriaAntiarea.tieneMisiles(tieneMisiles)
+		residuosRadioactivos.peso(pesoResiduosRadioactivos)
+		embalajeSeguridad.cosa(residuosRadioactivos)
+		contenedor.cargar(paqueteLadrillos)
+		contenedor.cargar(bateriaAntiarea)
+		contenedor.cargar(embalajeSeguridad)
+	}	
+	
+	test "peso paqueteLadrillos" {
+		assert.equals(2*cantidadLadrillos , 60)
+	}
+	
+	test "peso bateriaAntiarea" {
+		assert.equals(300, bateriaAntiarea.peso())
+	}
+	
+	test "peligrosidad bateriaAntiarea" {
+		assert.equals(100, bateriaAntiarea.nivelPeligrosidad() )
+	}
+	
+	test "peso embalajeSeguridad" {
+		assert.equals(pesoResiduosRadioactivos, embalajeSeguridad.peso() )
+	}
+	
+	test "peligrosidad embalajeSeguridad" {
+		assert.equals( 100, embalajeSeguridad.nivelPeligrosidad() )
+	}	
+	
+	
+	test "peso contenedor" {
+		assert.equals( 
+			100 
+			+ paqueteLadrillos.peso() 
+			+ bateriaAntiarea.peso()
+			+ embalajeSeguridad.peso()
+			, contenedor.peso()
+		)
+	}
+	
+	test "peligrosidad contenedor" {
+		assert.equals( 100, contenedor.nivelPeligrosidad() )
+	}
+	
+	test "peligrosidad contenedor sacando embalajeSeguridad " {
+		contenedor.descargar(embalajeSeguridad)
+		assert.equals( 100, contenedor.nivelPeligrosidad() )
+	}
+	
+}
+
+
