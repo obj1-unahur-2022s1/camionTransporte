@@ -13,6 +13,10 @@ object camion {
 		cosas.remove(unaCosa)
 	}
 	
+	method todoPesoPar () {
+		return cosas.all( {c => c.peso().even()})
+	}
+	
 	method hayAlgunoQuePesa (peso) {
 		return cosas.any( { c => c.peso() == peso })
 	}
@@ -43,12 +47,9 @@ object camion {
 	}
 	
 	
-	
 	method  tieneAlgoQuePesaEntre(min, max) = return cosas.any( { c => c.peso().between(min, max) } )
 	method  cosaMasPesada() = return cosas.max( { c => c.peso() } )
 	method  pesos() = return cosas.map( { c => c.peso() } )
-	
-	
 	
 	
 }
